@@ -136,7 +136,7 @@ export async function groupWarpcast() {
           });
         }
 
-        console.log(` | Success Follow ${res.username}`);
+        console.log(` | Success Follow ${res.username} | delay ${randomDelay}ms`);
       } catch (error) {
         spinnerFetchMemberGroup.stop();
         customException({

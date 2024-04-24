@@ -108,8 +108,6 @@ export async function groupWarpcast() {
 
     const tableData = [];
 
-    contributorBenefit();
-
     for (const [i, res] of filteredArraymemberGroup.entries()) {
       try {
         const randomDelay = Math.floor(Math.random() * 10000) + 2000;

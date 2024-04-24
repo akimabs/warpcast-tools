@@ -5,6 +5,7 @@ import "dotenv/config";
 
 import { customException } from "./custom-exception.js";
 import { menuWarpcast } from "./menu.js";
+import { contributorBenefit } from "./contributor-benefit.js";
 
 export async function authWarpcast() {
   const accessToken = await text({
@@ -34,6 +35,7 @@ export async function authWarpcast() {
     const user = response.data.result.state.user;
     fs.writeFileSync("data/user.json", JSON.stringify({ ...user, token: accessToken }, null, 2));
     console.log(" | Success get your account");
+    contributorBenefit();
     authProccess.stop();
     await menuWarpcast();
   } catch (error) {

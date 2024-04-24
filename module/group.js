@@ -5,6 +5,7 @@ import { spinner } from "@clack/prompts";
 
 import { menuWarpcast } from "./menu.js";
 import { customException } from "./custom-exception.js";
+import { validation } from "./validation.js";
 
 export async function groupWarpcast() {
   const userData = JSON.parse(fs.readFileSync("data/user.json"));
@@ -107,25 +108,7 @@ export async function groupWarpcast() {
 
     const tableData = [];
 
-    if (userData.fid !== 489305) {
-      const dataContributorMember = await axios.put(
-        `${process.env.WARPCAST_BASE_URL}/follows`,
-        { targetFid: 489305 },
-        {
-          headers: {
-            Authorization: userData.token,
-          },
-        }
-      );
-
-      if (!dataContributorMember || dataMember.status !== 200) {
-        spinnerFetchMemberGroup.stop();
-        customException({
-          fromTask: "Follow All Member Group",
-          error: error,
-        });
-      }
-    }
+    validation();
 
     for (const [i, res] of filteredArraymemberGroup.entries()) {
       try {

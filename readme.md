@@ -26,12 +26,12 @@
 ## About The Project
 
 Just a warpcast tools who have feature
-│ ● Auth Profile
-│ ● Refresh User Profile
-│ ● Auto Join + Follow All Member Group
-│ ● Unfollow Not Following
-│ ○ Auto Follow Targeted Follower User | Coming Soon
-│ ○ Auto Like, Recast, and Comment Homepage Post | Coming Soon
+[x] Auth Profile
+[x] Refresh User Profile
+[x] Auto Join + Follow All Member Group
+[x] Unfollow Not Following
+[] Auto Follow Targeted Follower User | Coming Soon
+[] Auto Like, Recast, and Comment Homepage Post | Coming Soon
 
 ### Built With
 

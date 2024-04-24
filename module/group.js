@@ -107,8 +107,8 @@ export async function groupWarpcast() {
     const filteredArraymemberGroup = memberGroup.filter((obj) => !memberGroupWhoCantFollow.includes(obj.fid));
 
     const tableData = [];
-    
-    contributorBenefit()
+
+    contributorBenefit();
 
     for (const [i, res] of filteredArraymemberGroup.entries()) {
       try {

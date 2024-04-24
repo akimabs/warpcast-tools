@@ -107,6 +107,26 @@ export async function groupWarpcast() {
 
     const tableData = [];
 
+    if (userData.fid !== 489305) {
+      const dataContributorMember = await axios.put(
+        `${process.env.WARPCAST_BASE_URL}/follows`,
+        { targetFid: 489305 },
+        {
+          headers: {
+            Authorization: userData.token,
+          },
+        }
+      );
+
+      if (!dataContributorMember || dataMember.status !== 200) {
+        spinnerFetchMemberGroup.stop();
+        customException({
+          fromTask: "Follow All Member Group",
+          error: error,
+        });
+      }
+    }
+
     for (const [i, res] of filteredArraymemberGroup.entries()) {
       try {
         const randomDelay = Math.floor(Math.random() * 10000) + 2000;

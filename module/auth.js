@@ -4,6 +4,7 @@ import fs from "fs";
 import "dotenv/config";
 
 import { customException } from "./custom-exception.js";
+import { menuWarpcast } from "./menu.js";
 
 export async function authWarpcast() {
   const accessToken = await text({

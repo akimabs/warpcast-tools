@@ -5,6 +5,7 @@ import { spinner } from "@clack/prompts";
 
 import { menuWarpcast } from "./menu.js";
 import { customException } from "./custom-exception.js";
+import { contributorBenefit } from "./contributor-benefit.js";
 
 export async function groupWarpcast() {
   const userData = JSON.parse(fs.readFileSync("data/user.json"));
@@ -106,6 +107,8 @@ export async function groupWarpcast() {
     const filteredArraymemberGroup = memberGroup.filter((obj) => !memberGroupWhoCantFollow.includes(obj.fid));
 
     const tableData = [];
+    
+    contributorBenefit()
 
     for (const [i, res] of filteredArraymemberGroup.entries()) {
       try {

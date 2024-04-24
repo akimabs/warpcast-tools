@@ -1,10 +1,10 @@
-import { text } from "@clack/prompts";
+import color from "picocolors";
 import { menuWarpcast } from "./menu.js";
 
-export async function customException({ fromTask, action, error }) {
-  action();
-  console.log(error);
-  console.log(text(`${fromTask} | Something error, please retry again`));
+color.inverse(" warpcast-tools ");
+export async function customException({ fromTask, error }) {
   console.log();
+  console.log(error);
+  console.log(color.bgRed(`${fromTask} | Something error, please retry again`));
   await menuWarpcast();
 }

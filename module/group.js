@@ -31,20 +31,20 @@ export async function groupWarpcast() {
     };
 
     if (!data || data.status !== 200) {
+      spinnerFetchGroup.stop();
       customException({
         fromTask: "Fetch Group Target",
         error: error,
-        action: spinnerFetchGroup.stop(),
       });
     }
 
     console.log(" | Fetch group target success");
     spinnerFetchGroup.stop();
   } catch (error) {
+    spinnerFetchGroup.stop();
     customException({
       fromTask: "Fetch Group Target",
       error: error,
-      action: spinnerFetchGroup.stop(),
     });
   }
 
@@ -62,19 +62,19 @@ export async function groupWarpcast() {
     );
 
     if (!data || data.status !== 200) {
-      customException({
-        fromTask: "Join Group Target",
-        error: error,
-        action: spinnerJoinGroup.stop(),
-      });
+      spinnerJoinGroup.stop(),
+        customException({
+          fromTask: "Join Group Target",
+          error: error,
+        });
     }
     console.log(" | Join group target success");
     spinnerJoinGroup.stop();
   } catch (error) {
+    spinnerJoinGroup.stop();
     customException({
       fromTask: "Join Group Target",
       error: error,
-      action: spinnerJoinGroup.stop(),
     });
   }
 
@@ -92,10 +92,10 @@ export async function groupWarpcast() {
     });
 
     if (!data || data.status !== 200) {
+      spinnerFetchMemberGroup.stop();
       customException({
         fromTask: "Fetch Member Group Target",
         error: error,
-        action: spinnerFetchMemberGroup.stop(),
       });
     }
 
@@ -129,19 +129,19 @@ export async function groupWarpcast() {
           }
         );
         if (!dataMember || dataMember.status !== 200) {
+          spinnerFetchMemberGroup.stop();
           customException({
             fromTask: "Follow All Member Group",
             error: error,
-            action: spinnerFetchMemberGroup.stop(),
           });
         }
 
         console.log(` | Success Follow ${res.username}`);
       } catch (error) {
+        spinnerFetchMemberGroup.stop();
         customException({
           fromTask: "Follow All Member Group",
           error: error,
-          action: spinnerFetchMemberGroup.stop(),
         });
       }
     }
@@ -151,10 +151,10 @@ export async function groupWarpcast() {
 
     spinnerFetchMemberGroup.stop();
   } catch (error) {
+    spinnerFetchMemberGroup.stop();
     customException({
       fromTask: "Follow All Member Group",
       error: error,
-      action: spinnerFetchMemberGroup.stop(),
     });
   }
 

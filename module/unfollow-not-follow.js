@@ -28,21 +28,21 @@ export async function unfollowNotFollowWarpcast() {
     responseFollowing = data.data.result.users;
 
     if (!data || data.status !== 200) {
-      customException({
-        fromTask: "Fetch Following Target",
-        error: error,
-        action: spinnerFetchFollowing.stop(),
-      });
+      spinnerFetchFollowing.stop(),
+        customException({
+          fromTask: "Fetch Following Target",
+          error: error,
+        });
     }
 
     console.log(" | Fetch Following Target success");
     spinnerFetchFollowing.stop();
   } catch (error) {
-    customException({
-      fromTask: "Fetch Following Target",
-      error: error,
-      action: spinnerFetchFollowing.stop(),
-    });
+    spinnerFetchFollowing.stop(),
+      customException({
+        fromTask: "Fetch Following Target",
+        error: error,
+      });
   }
 
   const spinnerFetchFollower = spinner();
@@ -62,20 +62,20 @@ export async function unfollowNotFollowWarpcast() {
     responseFollower = data.data.result.users;
 
     if (!data || data.status !== 200) {
+      spinnerFetchFollower.stop();
       customException({
         fromTask: "Fetch Followers Target",
         error: error,
-        action: spinnerFetchFollower.stop(),
       });
     }
 
     console.log(" | Fetch Follower Target success");
     spinnerFetchFollower.stop();
   } catch (error) {
+    spinnerFetchFollower.stop();
     customException({
       fromTask: "Fetch Followers Target",
       error: error,
-      action: spinnerFetchFollower.stop(),
     });
   }
 
@@ -109,19 +109,19 @@ export async function unfollowNotFollowWarpcast() {
           },
         });
         if (!dataMember || dataMember.status !== 200) {
+          spinnerFetchFollower.stop();
           customException({
             fromTask: "Unfollow not follower",
             error: error,
-            action: spinnerFetchFollower.stop(),
           });
         }
 
         console.log(` | Success Unfollow ${res.username}`);
       } catch (error) {
+        spinnerFetchFollower.stop();
         customException({
           fromTask: "Unfollow not follower",
           error: error,
-          action: spinnerFetchFollower.stop(),
         });
       }
     }
@@ -130,10 +130,10 @@ export async function unfollowNotFollowWarpcast() {
 
     spinnerUnfollowNotFollower.stop();
   } catch (error) {
+    spinnerUnfollowNotFollower.stop();
     customException({
       fromTask: "Unfollow not follower",
       error: error,
-      action: spinnerFetchFollower.stop(),
     });
   }
 

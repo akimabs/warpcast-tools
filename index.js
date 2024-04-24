@@ -1,7 +1,7 @@
-import { intro } from "@clack/prompts";
-import color from "picocolors";
 import fs from "fs";
 import "dotenv/config";
+import color from "picocolors";
+import { intro } from "@clack/prompts";
 
 import { authWarpcast } from "./module/auth.js";
 import { menuWarpcast } from "./module/menu.js";

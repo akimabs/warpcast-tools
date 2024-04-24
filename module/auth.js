@@ -17,7 +17,7 @@ export async function authWarpcast() {
   }
 
   const authProccess = spinner();
-  authProccess.start("Check your account");
+  authProccess.start("Auth");
 
   try {
     const response = await axios.get(`${process.env.WARPCAST_BASE_URL}/onboarding-state`, {
@@ -36,10 +36,10 @@ export async function authWarpcast() {
     authProccess.stop();
     await menuWarpcast();
   } catch (error) {
+    authProccess.stop();
     customException({
-      fromTask: "Check your account",
+      fromTask: "Auth",
       error: error,
-      action: authProccess.stop(),
     });
   }
 }

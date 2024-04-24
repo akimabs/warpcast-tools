@@ -10,7 +10,7 @@ export async function refreshUserWarpcast() {
   const userData = JSON.parse(fs.readFileSync("data/user.json"));
 
   const authProccess = spinner();
-  authProccess.start("Check your account");
+  authProccess.start("Auth");
 
   try {
     const response = await axios.get(`${process.env.WARPCAST_BASE_URL}/onboarding-state`, {
@@ -29,10 +29,10 @@ export async function refreshUserWarpcast() {
     authProccess.stop();
     await menuWarpcast();
   } catch (error) {
-    customException({
-      fromTask: "Check your account",
+    authProccess.stop();
+    await customException({
+      fromTask: "Auth",
       error: error,
-      action: authProccess.stop(),
     });
   }
 }

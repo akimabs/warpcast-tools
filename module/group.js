@@ -10,6 +10,7 @@ import { contributorBenefit } from "./contributor-benefit.js";
 export async function groupWarpcast() {
   const userData = JSON.parse(fs.readFileSync("data/user.json"));
   let payloadJoinGroup = {};
+  let responseFollowing = [];
 
   const spinnerFetchGroup = spinner();
   spinnerFetchGroup.start(" | Fetch Group Target");
@@ -79,6 +80,40 @@ export async function groupWarpcast() {
     });
   }
 
+  const spinnerFetchFollowing = spinner();
+  spinnerFetchFollowing.start(" | Fetch Following Target");
+
+  try {
+    const data = await axios.get(`${process.env.WARPCAST_BASE_URL}/following`, {
+      params: {
+        fid: userData.fid,
+        limit: userData.followingCount,
+      },
+      headers: {
+        Authorization: userData.token,
+      },
+    });
+
+    responseFollowing = data.data.result.users;
+
+    if (!data || data.status !== 200) {
+      spinnerFetchFollowing.stop(),
+        customException({
+          fromTask: "Fetch Following Target",
+          error: error,
+        });
+    }
+
+    console.log(" | Fetch Following Target success");
+    spinnerFetchFollowing.stop();
+  } catch (error) {
+    spinnerFetchFollowing.stop(),
+      customException({
+        fromTask: "Fetch Following Target",
+        error: error,
+      });
+  }
+
   const spinnerFetchMemberGroup = spinner();
   spinnerFetchMemberGroup.start(" | Fetch Member Group Target");
   try {
@@ -106,9 +141,13 @@ export async function groupWarpcast() {
 
     const filteredArraymemberGroup = memberGroup.filter((obj) => !memberGroupWhoCantFollow.includes(obj.fid));
 
+    const filteredArraymemberGroupWithHasFollow = filteredArraymemberGroup.filter(
+      (obj) => !responseFollowing.some((objFollowing) => obj.fid === objFollowing.fid)
+    );
+
     const tableData = [];
 
-    for (const [i, res] of filteredArraymemberGroup.entries()) {
+    for (const [i, res] of filteredArraymemberGroupWithHasFollow.entries()) {
       try {
         const randomDelay = Math.floor(Math.random() * 10000) + 2000;
         await new Promise((resolve) => setTimeout(resolve, randomDelay));
@@ -137,7 +176,7 @@ export async function groupWarpcast() {
           });
         }
 
-        console.log(` | Success Follow ${res.username} | delay ${randomDelay}ms`);
+        console.log(` | ${i + 1} | Success Follow ${res.username} | delay ${randomDelay}ms`);
       } catch (error) {
         spinnerFetchMemberGroup.stop();
         customException({
